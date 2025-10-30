@@ -132,6 +132,8 @@ MonoBehaviour:
   speed: 2
   maxHealth: 10
   contactDamage: 10
+  dropTable: {fileID: 11400000, guid: 3d8d515f1d4786e4aa3708f639589321, type: 2}
+  ingredientPickupPrefab: {fileID: 7420424176243505295, guid: c0e7d0d3b98df634faefdde8fea6ee00, type: 3}
 --- !u!58 &9110013500151999335
 CircleCollider2D:
   m_ObjectHideFlags: 0
