@@ -1,0 +1,45 @@
+# Archivos de Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Visual Studio
+ExportedObj/
+.vscode/
+*.vs/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Archivos de Unity Cloud
+*.pidb
+*.booproj
+
+# Archivos personales
+*.userprefs
+
+# Archivos de Rider
+.idea/
+*.sln.iml
+__pycache__/
+venv/
