@@ -5,6 +5,7 @@ public class EnemyFollow : MonoBehaviour
 {
     public float speed = 2f;
     public int maxHealth = 10;
+    public int contactDamage = 10;
 
     private Transform player;
     private Rigidbody2D rb;
@@ -46,6 +47,18 @@ public class EnemyFollow : MonoBehaviour
                 GameManager.Instance.UnregisterEnemy();
 
             Destroy(gameObject);
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Si está tocando al jugador, hace daño poco a poco
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerHealth hp = collision.gameObject.GetComponent<PlayerHealth>();
+            if (hp != null)
+            {
+                hp.TakeDamage(contactDamage);
+            }
         }
     }
 }

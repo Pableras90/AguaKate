@@ -3,10 +3,13 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    [Header("Spawn Timing")]
     public float spawnInterval = 2f;
-    public float spawnRadius = 5f;
+
 
     private float timer;
+    [Header("Spawn Area")]
+    public float spawnRadius = 6f;
 
     private void Update()
     {
@@ -21,8 +24,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Vector2 offset = Random.insideUnitCircle.normalized * spawnRadius;
-        Vector3 spawnPos = transform.position + new Vector3(offset.x, offset.y, 0f);
-        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        Vector2 dir = Random.insideUnitCircle.normalized;
+
+        Vector3 pos = transform.position + new Vector3(dir.x, dir.y, 0f) * spawnRadius;
+
+        Instantiate(enemyPrefab, pos, Quaternion.identity);
     }
 }
