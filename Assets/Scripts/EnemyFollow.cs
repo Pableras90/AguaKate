@@ -41,9 +41,15 @@ public class EnemyFollow : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        Debug.Log($"[ENEMY] He recibido {amount} de daño. Vida antes: {currentHealth}");
+
         currentHealth -= amount;
+
+        Debug.Log($"[ENEMY] Vida después del golpe: {currentHealth}");
+
         if (currentHealth <= 0)
         {
+            Debug.Log("[ENEMY] Muerto ");
             if (GameManager.Instance != null)
                 GameManager.Instance.UnregisterEnemy();
             DropLoot();

@@ -4,15 +4,17 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 10f;
-    public int damage = 5;
-    public float lifeTime = 2f;
+    public float lifetime = 2f;
 
-    private Rigidbody2D rb;
     private Vector2 direction;
+    private int damage;
+    private Rigidbody2D rb;
 
-    public void Init(Vector2 dir)
+    // Llamado justo después de Instantiate
+    public void Init(Vector2 dir, int dmg)
     {
         direction = dir.normalized;
+        damage = dmg;
     }
 
     private void Awake()
@@ -20,11 +22,12 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
+   
     }
 
     private void Start()
     {
-        Destroy(gameObject, lifeTime);
+        Destroy(gameObject, lifetime);
     }
 
     private void FixedUpdate()
@@ -34,9 +37,8 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Si choca contra enemigo, hace daño y se destruye
-        EnemyFollow enemy = other.GetComponent<EnemyFollow>();
-        if (enemy != null)
+        // Solo dañamos si tocamos un enemigo
+        if (other.TryGetComponent<EnemyFollow>(out var enemy))
         {
             enemy.TakeDamage(damage);
             Destroy(gameObject);

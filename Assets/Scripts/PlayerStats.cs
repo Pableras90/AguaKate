@@ -7,6 +7,9 @@ public class PlayerStats : MonoBehaviour
     public int damage = 5;
     public float fireRate = 0.5f;
     public float moveSpeed = 4f;
+    [Header("Defense")]
+    public float invulnerabilityTime = 1f; // tiempo base entre golpes
+
 
     // Referencias a otros componentes que deben reaccionar
     public PlayerHealth healthComponent;
@@ -55,6 +58,13 @@ public class PlayerStats : MonoBehaviour
                 moveSpeed += amount;
                 if (movementComponent != null)
                     movementComponent.moveSpeed = moveSpeed;
+                break;
+            case StatType.InvulnerabilityTime:
+                invulnerabilityTime += amount * 0.1f; // ejemplo: cada punto = +0.1s
+                if (healthComponent != null)
+                {
+                    healthComponent.invulnerabilityTime = invulnerabilityTime;
+                }
                 break;
         }
     }

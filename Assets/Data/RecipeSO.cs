@@ -13,6 +13,9 @@ public enum StatType
     Damage,
     FireRate,
     MoveSpeed,
+    InvulnerabilityTime,
+   
+
 }
 
 [CreateAssetMenu(menuName = "Avocado/Recipe")]
