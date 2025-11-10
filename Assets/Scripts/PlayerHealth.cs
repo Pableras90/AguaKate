@@ -61,6 +61,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        GameOverManager.Instance?.GameOver();
         Debug.Log("Player died!");
         // Más adelante: trigger Game Over, UI, etc.
         // Por ahora simplemente desactivamos el jugador
