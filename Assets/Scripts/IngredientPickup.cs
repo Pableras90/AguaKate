@@ -3,9 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class IngredientPickup : MonoBehaviour
 {
-    
-    
-
     private IngredientSO data;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
@@ -23,10 +20,13 @@ public class IngredientPickup : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         // Añadir al inventario del jugador
-        IngredientInventory inv = other.GetComponent<IngredientInventory>();
-        if (inv != null && data != null)
+        if (IngredientInventory.Instance != null)
         {
-            inv.AddIngredient(data, 1);
+            IngredientInventory.Instance.AddIngredient(data, 1);
+        }
+        else
+        {
+            Debug.LogWarning("[Pickup] No existe IngredientInventory.Instance en la escena.");
         }
 
         Destroy(gameObject);

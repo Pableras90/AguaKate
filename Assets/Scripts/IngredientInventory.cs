@@ -1,18 +1,35 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class IngredientInventory : MonoBehaviour
 {
-    private Dictionary<IngredientSO, int> bag = new Dictionary<IngredientSO, int>();
+    public static IngredientInventory Instance; //  para acceder fácilmente desde otros scripts
+    public event Action OnInventoryChanged;     //  para avisar a la UI cuando cambia
+
+    private Dictionary<IngredientSO, int> bag = new();
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     public void AddIngredient(IngredientSO ingredient, int amount)
     {
+        if (ingredient == null || amount <= 0) return;
+
         if (bag.ContainsKey(ingredient))
             bag[ingredient] += amount;
         else
             bag[ingredient] = amount;
 
         Debug.Log($"Recogido {ingredient.ingredientName}. Total ahora: {bag[ingredient]}");
+        OnInventoryChanged?.Invoke(); //  notificar cambios
     }
 
     public bool HasEnough(IngredientSO ingredient, int needed)
@@ -27,6 +44,8 @@ public class IngredientInventory : MonoBehaviour
         bag[ingredient] -= amount;
         if (bag[ingredient] <= 0)
             bag.Remove(ingredient);
+
+        OnInventoryChanged?.Invoke(); //  notificar cambios
     }
 
     // Para debug: listar inventario actual
@@ -37,4 +56,7 @@ public class IngredientInventory : MonoBehaviour
             Debug.Log($"{kvp.Key.ingredientName}: {kvp.Value}");
         }
     }
+
+    //  acceso de solo lectura para HUD
+    public IReadOnlyDictionary<IngredientSO, int> GetAll() => bag;
 }
